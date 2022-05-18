@@ -163,7 +163,17 @@ window.onload = wrap_img;
 <p>我們前面提到，變分推斷希望找到一個變分分配 $q(z)$ 來代表 $p(z\mid  x)$，當然，我們希望這兩個分配的差別越小越好，一種計算這種分配之間的抽象距離是透過 KL 散度</p>
 
 <ul>
-  <li>$\text{KL(q(z)\mid \mid p(z\mid x))} = \log p(z\mid x) + \mathbb{E}_{q(z)}[\log q(z)-\log p(x, z)]$</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>$\text{KL(q(z)</td>
+          <td> </td>
+          <td>p(z\mid x))} = \log p(z\mid x) + \mathbb{E}_{q(z)}[\log q(z)-\log p(x, z)]$</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
   <li>$\text{ELBO}:$ - $\mathbb{E}_{q(z)}[\log q(z)-\log p(x, z)]$</li>
   <li>$\text{Target}:$ Maximize $\text{ELBO}$</li>
 </ul>
