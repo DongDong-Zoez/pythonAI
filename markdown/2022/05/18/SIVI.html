@@ -95,7 +95,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      1 min read
     
 </span></p>
 
@@ -145,30 +145,15 @@ window.onload = wrap_img;
 
 <p>模型推斷基本上是機器學習中最常用的技巧之一。我們手中的資料通常都是樣本的特徵 $x_i = (x_{i1}, \cdots, x_{ip})$ 加上樣本對應的標籤 $y_i$，這樣成隊出現的資料有一個概率 $p(x,y)$，也就是我們蒐集到這筆資料的概率，或者說這筆資料是從一個機率分配 $p$ 產生的，可以是非常複雜的機率分配，也可以是非常簡單的</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>我們希望用蒐集到的資料來建立模型，最後可以用在測試集上預測，也就是窮舉所有的 $y$，找一個 $y$ 使得 $y=\arg\max_{y^<em>} p(y^</em>
-</td>
-      <td>x_{new})$，這樣的問題可以透過貝葉思解決，也就是透過 $p(x,y)=p(x</td>
-      <td>y)p(y)$ 來估計 $p(y</td>
-      <td>x)$</td>
-    </tr>
-  </tbody>
-</table>
+<p>我們希望用蒐集到的資料來建立模型，最後可以用在測試集上預測，也就是窮舉所有的 $y$，
+找一個 $y$ 使得 $y=\arg\max_{y’} p(y’|x_{new})$，這樣的問題可以透過貝葉思解決，
+也就是透過 $p(x,y)=p(x|y)p(y)$ 來估計 $p(y|x)$</p>
 
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>y</mi><mo stretchy="false">)</mo><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><mrow><mo>∫</mo><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>y</mi><mo stretchy="false">)</mo><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mi>d</mi><mi>y</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">p(y|x) = \frac{p(x|y)p(y)}{\int p(x|y)p(y)dy}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4281em;vertical-align:-1.0011em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.305em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop op-symbol small-op" style="margin-right:0.19445em;position:relative;top:-0.0006em;">∫</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.0011em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span>
 
-<table>
-  <tbody>
-    <tr>
-      <td>$p(x</td>
-      <td>y)$ 可以是任何一個可解析形式，例如在樸素貝葉思中假設 $p(x</td>
-      <td>y) \sim N(\mu_y,\sigma^2_y)$。由於先驗分配 $p(x)$ 積分運算太過複雜，上式中的解通常沒有一個可解析的形式。變分推斷就是透過建立一個變分分配 $q(x)$ 來估計 $p(y</td>
-      <td>x)$</td>
-    </tr>
-  </tbody>
-</table>
+<p>$p(x|y)$ 可以是任何一個可解析形式，例如在樸素貝葉思中假設 $p(x|y) \sim N(\mu_y,\sigma^2_y)$。
+由於先驗分配 $p(x)$ 積分運算太過複雜，上式中的解通常沒有一個可解析的形式。
+變分推斷就是透過建立一個變分分配 $q(x)$ 來估計 $p(y|x)$</p>
 
 <h2 id="變分推斷">
 <a class="anchor" href="#%E8%AE%8A%E5%88%86%E6%8E%A8%E6%96%B7" aria-hidden="true"><span class="octicon octicon-link"></span></a>變分推斷</h2>
