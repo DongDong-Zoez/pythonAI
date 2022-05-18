@@ -118,17 +118,17 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#變分推斷">變分推斷</a></li>
 <li class="toc-entry toc-h2"><a href="#sivi-半隱變分推斷">SIVI 半隱變分推斷</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#半隱分配--">半隱分配 {-}</a></li>
-<li class="toc-entry toc-h3"><a href="#抽樣問題--">抽樣問題 {-}</a></li>
-<li class="toc-entry toc-h3"><a href="#optimization--">Optimization {-}</a></li>
-<li class="toc-entry toc-h3"><a href="#regularization--">Regularization {-}</a></li>
-<li class="toc-entry toc-h3"><a href="#algorithm--">Algorithm {-}</a></li>
+<li class="toc-entry toc-h3"><a href="#半隱分配">半隱分配</a></li>
+<li class="toc-entry toc-h3"><a href="#抽樣問題">抽樣問題</a></li>
+<li class="toc-entry toc-h3"><a href="#optimization">Optimization</a></li>
+<li class="toc-entry toc-h3"><a href="#regularization">Regularization</a></li>
+<li class="toc-entry toc-h3"><a href="#algorithm">Algorithm</a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#應用">應用</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#vae--">VAE {-}</a></li>
-<li class="toc-entry toc-h3"><a href="#vae-的極限--">VAE 的極限 {-}</a></li>
+<li class="toc-entry toc-h3"><a href="#vae">VAE</a></li>
+<li class="toc-entry toc-h3"><a href="#vae-的極限">VAE 的極限</a></li>
 </ul>
 </li>
 </ul>
@@ -226,8 +226,8 @@ window.onload = wrap_img;
 
 <p>這樣講可能不是特別具體，設想神經網路的生成器，我們不知道生成器中做了什麼操作，但是我們可以給定一個特定的 noise 生成出我們想要的結果，也就是說我們從一個沒有具體形式的黑盒子中抽樣得到一筆新的 data，所以我們可以將神經網路看成是一種隱分配。</p>
 
-<h3 id="半隱分配--">
-<a class="anchor" href="#%E5%8D%8A%E9%9A%B1%E5%88%86%E9%85%8D--" aria-hidden="true"><span class="octicon octicon-link"></span></a>半隱分配 {-}</h3>
+<h3 id="半隱分配">
+<a class="anchor" href="#%E5%8D%8A%E9%9A%B1%E5%88%86%E9%85%8D" aria-hidden="true"><span class="octicon octicon-link"></span></a>半隱分配</h3>
 
 <p>SIVI 中的重點是定義了半隱分配，如果一個隱分配的形式可以寫成以下形似，則稱為半隱分配</p>
 
@@ -262,8 +262,8 @@ window.onload = wrap_img;
   </tbody>
 </table>
 
-<h3 id="抽樣問題--">
-<a class="anchor" href="#%E6%8A%BD%E6%A8%A3%E5%95%8F%E9%A1%8C--" aria-hidden="true"><span class="octicon octicon-link"></span></a>抽樣問題 {-}</h3>
+<h3 id="抽樣問題">
+<a class="anchor" href="#%E6%8A%BD%E6%A8%A3%E5%95%8F%E9%A1%8C" aria-hidden="true"><span class="octicon octicon-link"></span></a>抽樣問題</h3>
 
 <table>
   <tbody>
@@ -283,8 +283,8 @@ q(z)&amp;=\int q_\xi(z|\psi)q_\phi(\psi)d\psi \\
 
 <p>舉例來說 $q_{\phi}(\psi)$ 的抽樣可以是神經網路 $T_\phi(\epsilon)$ 的輸出，其中 $\epsilon$ 是 noise，$\phi$ 是網路參數</p>
 
-<h3 id="optimization--">
-<a class="anchor" href="#optimization--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimization {-}</h3>
+<h3 id="optimization">
+<a class="anchor" href="#optimization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Optimization</h3>
 
 <p>接下來我們來討論如何找到 $q(z)$，回顧一下我們的任務是最大化 $\text{ELBO}$，這部分的內容較多數學推導，有興趣的同學再去閱讀作者的原論文 <a href="https://arxiv.org/pdf/1805.11183.pdf">SIVI</a>，這裡我只擷取重點，對數學不感興趣的請直接跳到應用</p>
 
@@ -349,8 +349,8 @@ q(z)&amp;=\int q_\xi(z|\psi)q_\phi(\psi)d\psi \\
   </li>
 </ul>
 
-<h3 id="regularization--">
-<a class="anchor" href="#regularization--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Regularization {-}</h3>
+<h3 id="regularization">
+<a class="anchor" href="#regularization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Regularization</h3>
 
 <p>我們在原本的 $\underline L$ 中加入了一個正則項 $B_K$ 來避免 SIVI 退化到一班的 VI</p>
 
@@ -387,8 +387,8 @@ q(z)&amp;=\int q_\xi(z|\psi)q_\phi(\psi)d\psi \\
 \underline L + B_K = &amp;\mathbb{E}_{\psi,\psi^{(1)},\cdots,\psi^{(k)}\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||\tilde h_K(z))\\ -&amp;\mathbb{E}_{\psi\sim q_\phi(\psi)}\text{KL}(q(z|\psi)||p(z|x))+\log p(x)
 \end{aligned}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.1883em;vertical-align:-1.3441em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8441em;"><span style="top:-3.9128em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord underline"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6833em;"><span style="top:-2.84em;"><span class="pstrut" style="height:3em;"></span><span class="underline-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span></span></span><span style="top:-2.3391em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">−</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3441em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8441em;"><span style="top:-3.9128em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord"><span class="mord mathbb">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.4694em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.822em;"><span style="top:-2.822em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5357em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="minner mtight">⋯</span><span class="mspace mtight" style="margin-right:0.1952em;"></span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.822em;"><span style="top:-2.822em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5357em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">ϕ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2901em;"><span></span></span></span></span></span></span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4337em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord">KL</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.03588em;">ψ</span><span class="mclose">)</span><span class="mord">∣∣</span><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9313em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">h</span></span><span style="top:-3.6134em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.25em;"><span class="mord">~</span></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">))</span></span></span><span style="top:-2.3391em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"></span><span class="mord"><span class="mord mathbb">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.0359em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">ϕ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2901em;"><span></span></span></span></span></span></span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ψ</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3833em;"><span></span></span></span></span></span></span><span class="mord text"><span class="mord">KL</span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.03588em;">ψ</span><span class="mclose">)</span><span class="mord">∣∣</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mclose">))</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3441em;"><span></span></span></span></span></span></span></span></span></span></span></span>
 
-<h3 id="algorithm--">
-<a class="anchor" href="#algorithm--" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithm {-}</h3>
+<h3 id="algorithm">
+<a class="anchor" href="#algorithm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithm</h3>
 
 <p><img src="https://i.imgur.com/6q3j6o4.jpg" alt=""></p>
 
@@ -397,8 +397,8 @@ q(z)&amp;=\int q_\xi(z|\psi)q_\phi(\psi)d\psi \\
 
 <p>SIVI 一個最大的應用是在變分自動編碼器上 (VAE)，接下來我們來談談什麼是 VAE，他又與我們今天的主題什麼關係</p>
 
-<h3 id="vae--">
-<a class="anchor" href="#vae--" aria-hidden="true"><span class="octicon octicon-link"></span></a>VAE {-}</h3>
+<h3 id="vae">
+<a class="anchor" href="#vae" aria-hidden="true"><span class="octicon octicon-link"></span></a>VAE</h3>
 
 <table>
   <tbody>
@@ -410,8 +410,8 @@ q(z)&amp;=\int q_\xi(z|\psi)q_\phi(\psi)d\psi \\
   </tbody>
 </table>
 
-<h3 id="vae-的極限--">
-<a class="anchor" href="#vae-%E7%9A%84%E6%A5%B5%E9%99%90--" aria-hidden="true"><span class="octicon octicon-link"></span></a>VAE 的極限 {-}</h3>
+<h3 id="vae-的極限">
+<a class="anchor" href="#vae-%E7%9A%84%E6%A5%B5%E9%99%90" aria-hidden="true"><span class="octicon octicon-link"></span></a>VAE 的極限</h3>
 
 <p>在一般形式的 VAE 中，所使用的 $q$ 分配通常為高斯分配，所以不管你的神經網路再怎麼厲害，潛變量 $z$ 仍然會服從高斯分配，這樣對厚尾或者有偏斜的資料很不友善，SIVI 的解決方案是新增更多的隨機層 ($M$)，並在每一層的輸入都加上 $\epsilon_t$</p>
 
